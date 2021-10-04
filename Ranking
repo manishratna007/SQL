@@ -1,0 +1,1 @@
+select s.score, COUNT(t.score) from (SELECT DISTINCT score FROM SCORES) AS t, scores as s where s.score<=t.score group by s.ID,s.score ORDER BY s.score DESC
