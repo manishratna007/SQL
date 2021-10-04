@@ -1,1 +1,18 @@
 select s.score, COUNT(t.score) from (SELECT DISTINCT score FROM SCORES) AS t, scores as s where s.score<=t.score group by s.ID,s.score ORDER BY s.score DESC
+UPDATE `scores` 
+	SET `Rank`=(select dense_rank() over (order by score desc) from scores)
+WHERE ID>0;
+create TEMPORARY table dense_rank select dense_rank() over (order by score desc) from scores
+SELECT scores.id,scores.rank FROM `scores` left join dense_rank on scores.id=dense_rank.id
+
+
+
+
+
+
+update scores inner join (
+    
+ select id,dense_rank() over (order by score desc) as d_rank from scores
+) dense_rank
+on scores.id=dense_rank.id
+set scores.Rank=dense_rank.d_rank
