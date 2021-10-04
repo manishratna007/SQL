@@ -1,0 +1,6 @@
+update scores inner join (
+SELECT s.id, s.score, g.grades 
+FROM scores s,grades g
+WHERE s.score BETWEEN g.min_marks AND g.max_marks) as grd
+on scores.ID=grd.ID
+set scores.Grades=grd.grades
