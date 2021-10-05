@@ -1,3 +1,8 @@
+#Method 1
+SELECT DISTINCT Salary FROM tblemployee ORDER BY Salary DESC LIMIT 1 OFFSET (n-1)
+#Put (n-1) as whatever number you want
+
+#Method 2
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 BEGIN
   SET N=N-1;
@@ -6,3 +11,4 @@ BEGIN
      select ifnull((select distinct Salary from Employee order by Salary desc limit 1 offset N),NULL) as getNthHighestSalary
       );
 END
+
